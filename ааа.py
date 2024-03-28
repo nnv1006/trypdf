@@ -84,7 +84,7 @@ def get_original_page_size(input_path):
     return width, height
 
 def create_pdf(elements, font_path, original_page_size):
-    output_path="output.pdf"
+    output_path=save_pdf_file()
     pdfmetrics.registerFont(TTFont('custom_font', font_path))
     writer = PdfWriter()
 
@@ -115,7 +115,11 @@ def select_pdf_file():
     file_path = filedialog.askopenfilename(filetypes=[("PDF files", "*.pdf")])
     return file_path
 
-
+def save_pdf_file():
+    root = Tk()
+    root.withdraw()
+    file_path = filedialog.asksaveasfile(filetypes=[("PDF files", "*.pdf")])
+    return file_path
 
 def main():
     input_path = select_pdf_file()
@@ -127,6 +131,9 @@ def main():
     # Создание PDF-файла с отображением всех элементов
     create_pdf( elements, font_path, original_page_size)
     print("PDF created successfully.")
-
+    # id = QFontDatabase.addApplicationFont("gosttypeb.ttf")
+    # _fontstr = QFontDatabase.applicationFontFamilies(id)[0]
+    # _font = QFont(_fontstr, 8)
+    # app.setFont(_font) установка шрифта в qt
 if __name__ == "__main__":
     main()
